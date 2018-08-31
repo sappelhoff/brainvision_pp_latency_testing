@@ -9,3 +9,6 @@
 
 # Testing
 .pytest_cache/
+
+# prototyping
+.ipynb_checkpoints
