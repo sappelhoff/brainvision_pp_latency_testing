@@ -37,3 +37,7 @@ pip install zmq json-tricks pyparallel sounddevice pygame pysoundcard psychopy_e
 ```
 
 Finally, run `pip install -e .` from the project root.
+
+# Tests
+
+Run `pytest --verbose` from the project root.

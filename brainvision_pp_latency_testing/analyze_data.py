@@ -1,12 +1,9 @@
 """Analyze the latency data and provide a report."""
 
 import os
-from warnings import warn
 
+import numpy as np
 import pandas as pd
-
-# The sampling frequency of the BrainVision equipment in Hz
-SAMPLING_FREQUENCY = 5000
 
 # Path to data directory
 file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -54,7 +51,7 @@ def read_vmrk(vmrk_path, key1, key2):
         # If we have a marker line, extract the information we want
         mtype, mdesc, onset = line.split(',')[:3]
         if mdesc in [key1, key2]:
-            info.append([mdesc, onset])
+            info.append([mdesc, int(onset)])
 
     # Reformat as pandas DataFrame
     df = pd.DataFrame(info, columns=['mdesc', 'onset'])
@@ -62,7 +59,7 @@ def read_vmrk(vmrk_path, key1, key2):
     return df
 
 
-def assert_df_integrity(df):
+def _assert_df_integrity(df):
     """Assert that the df is in the format we want."""
     # df should have two keys
     keys = df.mdesc.unique()
@@ -106,7 +103,29 @@ def assert_df_integrity(df):
             raise ValueError('Onsets must be monotonously increasing')
         prev = i
 
+    return True
+
+
+def analyze_df(df):
+    """Analyze a vmrk df and print out some stats."""
+    # First check the df is in our expected format
+    assert _assert_df_integrity(df)
+
+    # Now get the differences between markers in samples
+    diffs = []
+    prev = df.onset[0]
+    for i in df.onset[1::]:
+        diffs.append(i - prev)
+        prev = i
+
+    # Print the stats
+    diffs = np.asarray(diffs)
+    print('Key2 comes after Key1 with a delay of:')
+    print('------------------------------------')
+    print('Mean {} samples'.format(np.mean(diffs)))
+    print('STD: {} samples'.format(np.std(diffs)))
+    print('Median: {} samples'.format(np.median(diffs)))
+
 
 if __name__ == '__main__':
-    warn('Assuming sampling frequency of {} Hz.'
-         ' Make sure this is true!'.format(SAMPLING_FREQUENCY))
+    pass
