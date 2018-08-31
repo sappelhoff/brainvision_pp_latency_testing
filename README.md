@@ -38,6 +38,16 @@ pip install zmq json-tricks pyparallel sounddevice pygame pysoundcard psychopy_e
 
 Finally, run `pip install -e .` from the project root.
 
+# Parallel port setup
+... following: http://stefanappelhoff.com/blog/2017/11/23/Triggers-with-Psychopy-on-BrainVision-Recorder
+
+1. Download: https://www.downtowndougbrown.com/2013/06/parallel-port-tester/
+2. Download: http://www.highrez.co.uk/downloads/inpout32/default.htm
+3. Install 1. and 2. as administrator (follow readmes)
+4. Put the inpout32.dll into the same place as parallel-port-tester.exe
+5. Find the parallel port address through the parallel-port-tester
+6. Put inpoutx64.dll into the directory where the python script for sending trigger is
+
 # Tests
 
 Run `pytest --verbose` from the project root.
