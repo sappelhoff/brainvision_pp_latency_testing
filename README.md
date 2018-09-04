@@ -64,6 +64,7 @@ which will print an output:
 Analyzing: ../test/data/test.vmrk
 Key2 comes after Key1 with a delay of:
 ------------------------------------
+Analyzing differences between 9 sent triggers
 Mean 1000.0 samples
 STD: 0.0 samples
 Median: 1000.0 samples

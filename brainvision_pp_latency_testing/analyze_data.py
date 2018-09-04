@@ -123,6 +123,7 @@ def analyze_df(df):
     diffs = np.asarray(diffs)
     print('Key2 comes after Key1 with a delay of:')
     print('------------------------------------')
+    print('Analyzing differences between {} sent triggers'.format(len(diffs)))
     print('Mean {} samples'.format(np.mean(diffs)))
     print('STD: {} samples'.format(np.std(diffs)))
     print('Median: {} samples'.format(np.median(diffs)))
