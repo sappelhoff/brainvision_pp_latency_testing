@@ -5,6 +5,7 @@ import argparse
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Path to data directory
 file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -128,6 +129,8 @@ def analyze_df(df):
     print('STD: {} samples'.format(np.std(diffs)))
     print('Median: {} samples'.format(np.median(diffs)))
 
+    return diffs
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -140,4 +143,8 @@ if __name__ == '__main__':
     # NOTE: edit the key1 and key2 to your needs.
     df = read_vmrk(args.file, key1='S  1', key2='S  2')
     _assert_df_integrity(df)
-    analyze_df(df)
+    diffs = analyze_df(df)
+
+    # Make a histogram plot
+    hist_plot = pd.Series(diffs).plot.hist()
+    plt.show()

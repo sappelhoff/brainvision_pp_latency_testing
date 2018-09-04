@@ -71,6 +71,8 @@ Median: 1000.0 samples
 
 ```
 
+This will also plot a histogram in a new window.
+
 # Tests
 
 Run `pytest --verbose` from the project root.
