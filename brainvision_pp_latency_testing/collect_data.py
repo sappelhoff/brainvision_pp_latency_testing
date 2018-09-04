@@ -36,4 +36,84 @@ port.write([0xFF])
 
 # Close the serial port
 port.close()
+
 """
+import os
+import serial
+from warnings import warn
+if os.name == 'nt':
+    send_triggers = True
+    from ctypes import windll  # noqa F401
+else:
+    send_triggers = False
+    warn('Not sending any triggers. Need Windows platform for that.')
+from psychopy import visual, event, core  # noqa E402
+
+
+# If we send triggers, warm up the driver
+if send_triggers:
+    assert windll.inpoutx64.IsInpOutDriverOpen()
+
+# Make a psychopy window for the flow
+# Using pyglet instead of pygame leads to an error with gammaRamp
+# For proper timing, set fullscr to True
+win = visual.Window(winType='pygame', fullscr=False)
+
+# Determine minimum time that trigger has to be sent depending on EEG sampling
+# frequency. Be generous ...
+fs = 5000  # sampling frequency in Hz
+trig_wait = (1 / fs) * 2
+
+# Parallel port address
+pp_adr = 0x378
+marker_val = 1
+
+# Serial port address
+port = serial.Serial('COM6')
+port.write([0])
+
+# Assert we are running on the correct frame rate
+fps = 60
+print('Using fps: {}'.format(int(round(win.getActualFrameRate()))))
+assert int(round(win.getActualFrameRate())) == fps
+
+# Start the flow
+run_loop = True
+while run_loop:
+    for frame in range(fps):
+        keys = event.getKeys()
+
+        # corresponds to button box key value
+        if 'd' in keys:
+            if send_triggers:
+
+                # NOTE: Comment out one of the following
+                # Using parallel port
+                windll.inpoutx64.Out32(pp_adr, marker_val)
+                core.wait(trig_wait)
+                windll.inpoutx64.Out32(pp_adr, 0)
+
+                # Using Brain Products TriggerBox
+                # port.write(1)
+                # core.wait(trig_wait)
+                # port.write(0)
+
+                print('TRIGGER')
+            else:
+                print('DUMMY TRIGGER')
+
+        # We stop the procedure whenever we want
+        elif 'escape' in keys:
+            run_loop = False
+            break
+
+        # Flip the window to inquire new key presses that were done meanwhile
+        win.flip()
+
+
+# Clean up
+print('\nBye.')
+port.write([255])
+port.close()
+core.wait(1)
+win.close()
