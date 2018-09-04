@@ -69,11 +69,11 @@ pp_adr = 0x378
 marker_val = 1
 
 # Serial port address
-port = serial.Serial('COM6')
+port = serial.Serial('COM1')
 port.write([0])
 
 # Assert we are running on the correct frame rate
-fps = 60
+fps = 120
 print('Using fps: {}'.format(int(round(win.getActualFrameRate()))))
 assert int(round(win.getActualFrameRate())) == fps
 

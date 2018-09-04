@@ -141,7 +141,7 @@ if __name__ == '__main__':
     print('Analyzing: {}'.format(args.file))
 
     # NOTE: edit the key1 and key2 to your needs.
-    df = read_vmrk(args.file, key1='S  1', key2='S  2')
+    df = read_vmrk(args.file, key1='S  1', key2='R128')
     _assert_df_integrity(df)
     diffs = analyze_df(df)
 
