@@ -76,3 +76,7 @@ This will also plot a histogram in a new window.
 # Tests
 
 Run `pytest --verbose` from the project root.
+
+# Fixes
+1. in `psychopy.visual.Window`, use ``winType='pygame'` instead of pyglet
+2. on Windows, do `conda uninstall pillow` and then `pip install pillow`, see [here](https://github.com/python-pillow/Pillow/issues/2945)
