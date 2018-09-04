@@ -1,6 +1,7 @@
 """Analyze the latency data and provide a report."""
 
 import os
+import argparse
 
 import numpy as np
 import pandas as pd
@@ -128,4 +129,14 @@ def analyze_df(df):
 
 
 if __name__ == '__main__':
-    pass
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--file', '-f', type=str, required=True)
+    args = parser.parse_args()
+
+    print('Analyzing: {}'.format(args.file))
+
+    # NOTE: edit the key1 and key2 to your needs.
+    df = read_vmrk(args.file, key1='S  1', key2='S  2')
+    _assert_df_integrity(df)
+    analyze_df(df)

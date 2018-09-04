@@ -48,6 +48,28 @@ Finally, run `pip install -e .` from the project root.
 5. Find the parallel port address through the parallel-port-tester
 6. Put inpoutx64.dll into the directory where the python script for sending trigger is
 
+# Usage
+
+First, collect data using `collect_data.py` ... save the resulting `.vmrk` files in the `brainvision_pp_latency_testing/data` directory.
+
+To analyze the data, go to `analyze.py` and make sure that `key1` and `key2`
+of the `read_vmrk` function are properly set in the `__main__` call. You can
+then use the command line to input any file, as for example the test file:
+
+`python analyze_data.py -f ../test/data/test.vmrk`
+
+which will print an output:
+
+```
+Analyzing: ../test/data/test.vmrk
+Key2 comes after Key1 with a delay of:
+------------------------------------
+Mean 1000.0 samples
+STD: 0.0 samples
+Median: 1000.0 samples
+
+```
+
 # Tests
 
 Run `pytest --verbose` from the project root.
