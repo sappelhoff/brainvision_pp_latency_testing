@@ -69,7 +69,7 @@ pp_adr = 0x378
 marker_val = 1
 
 # Serial port address
-port = serial.Serial('COM1')
+port = serial.Serial('COM3')
 port.write([0])
 
 # Assert we are running on the correct frame rate
@@ -94,9 +94,9 @@ while run_loop:
                 windll.inpoutx64.Out32(pp_adr, 0)
 
                 # Using Brain Products TriggerBox
-                # port.write(1)
+                # port.write([1])
                 # core.wait(trig_wait)
-                # port.write(0)
+                # port.write([0])
 
                 print('TRIGGER')
             else:
