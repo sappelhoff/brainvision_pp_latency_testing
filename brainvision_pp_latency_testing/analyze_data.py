@@ -108,7 +108,7 @@ def _assert_df_integrity(df):
     return True
 
 
-def analyze_df(df):
+def analyze_df(df, key1='R128', key2='S  1'):
     """Analyze a vmrk df and print out some stats."""
     # First check the df is in our expected format
     assert _assert_df_integrity(df)
@@ -122,7 +122,7 @@ def analyze_df(df):
 
     # Print the stats
     diffs = np.asarray(diffs)
-    print('Key2 comes after Key1 with a delay of:')
+    print('"{}" comes after "{}" with a delay of:'.format(key2, key1))
     print('------------------------------------')
     print('Analyzing differences between {} sent triggers'.format(len(diffs)))
     print('Mean {} samples'.format(np.mean(diffs)))
@@ -141,9 +141,9 @@ if __name__ == '__main__':
     print('Analyzing: {}'.format(args.file))
 
     # NOTE: edit the key1 and key2 to your needs.
-    df = read_vmrk(args.file, key1='S  1', key2='R128')
+    df = read_vmrk(args.file, key1='R128', key2='S  1')
     _assert_df_integrity(df)
-    diffs = analyze_df(df)
+    diffs = analyze_df(df, key1='R128', key2='S  1')
 
     # Make a histogram plot
     hist_plot = pd.Series(diffs).plot.hist()
