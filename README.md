@@ -98,6 +98,14 @@ Run `pytest --verbose` from the project root.
 
 # Initial results
 
-These result are based on a sampling rate of 5kHz.
+These result are based on a sampling rate of 5kHz. Note the jitter might have several possible sources:
+
+1. The TTL pulses from presses of the button box are jittery depending on how the button is pressed (unlikely)
+2. The `collect_data.py` script introduces jitter through inquiring whether a key press has arrived only every 8.33ms (120fps) ... and only afterwards, a trigger is sent (yes)
+3. There might be some inherent jitter in either
+    1. the parallel port
+    2. the TriggerBox
+4. Some unknown reason (probably)
+
 
 ![initial results](./results.png)
