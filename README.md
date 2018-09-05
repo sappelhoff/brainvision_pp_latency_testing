@@ -38,7 +38,7 @@ pip install zmq json-tricks pyparallel sounddevice pygame pysoundcard psychopy_e
 
 Finally, run `pip install -e .` from the project root.
 
-# Parallel port setup
+## Parallel port setup
 ... following: http://stefanappelhoff.com/blog/2017/11/23/Triggers-with-Psychopy-on-BrainVision-Recorder
 
 1. Download: https://www.downtowndougbrown.com/2013/06/parallel-port-tester/
@@ -47,6 +47,21 @@ Finally, run `pip install -e .` from the project root.
 4. Put the inpout32.dll into the same place as parallel-port-tester.exe
 5. Find the parallel port address through the parallel-port-tester
 6. Put inpoutx64.dll into the directory where the python script for sending trigger is
+
+## TriggerBox setup
+
+1. For the TriggerBox installation, see: https://www.brainproducts.com/downloads.php?kid=40
+
+![settings TRIGGERBOX](./settings/trigger_box.jpg)
+
+
+## BrainVision Recorder setup
+1. See: https://www.brainproducts.com/files/public/products/brochures_material/pr_articles/1103_Support_Tip.pdf
+2. Specifically, note the "LOW ACTIVE" state for pins 8-15. These are the pins relevant for the button box we are sending trigger signals with. "HIGH ACTIVE" might lead to unexpected results such as the USB trigger (sent via the OS and psychopy) occurring before the TTL trigger (sent only via a copper cable).
+
+![settings BV REC 1](./settings/settings1.png)
+![settings BV REC 2](./settings/settings2.png)
+
 
 # Usage
 
