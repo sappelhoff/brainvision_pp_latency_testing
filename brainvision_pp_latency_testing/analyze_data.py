@@ -61,14 +61,12 @@ def read_vmrk(vmrk_path, key1, key2):
     return df
 
 
-def _assert_df_integrity(df):
+def _assert_df_integrity(df, key1='R128', key2='S  1'):
     """Assert that the df is in the format we want."""
     # df should have two keys
     keys = df.mdesc.unique()
     if len(keys) != 2:
         raise ValueError('df should contain exactly two keys.')
-    else:
-        key1, key2 = keys
 
     # key1 needs to come first
     if df.mdesc.tolist()[0] != key1:
@@ -142,9 +140,13 @@ if __name__ == '__main__':
 
     # NOTE: edit the key1 and key2 to your needs.
     df = read_vmrk(args.file, key1='R128', key2='S  1')
-    _assert_df_integrity(df)
+    _assert_df_integrity(df, key1='R128', key2='S  1')
     diffs = analyze_df(df, key1='R128', key2='S  1')
 
     # Make a histogram plot
     hist_plot = pd.Series(diffs).plot.hist()
+    hist_plot.set_title('Histogram of {}\nResults for "{}"'.format(len(diffs),
+                                                                   args.file))
+    hist_plot.set_xlabel('Delay in samples')
+    hist_plot.set_ylabel('count')
     plt.show()
