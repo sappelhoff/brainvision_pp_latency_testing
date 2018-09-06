@@ -127,12 +127,12 @@ def analyze_df(df, key1='R128', key2='S  1'):
 
     # Print the stats
     diffs = np.asarray(diffs)
+    print('Analyzing differences between {} sent triggers'.format(len(diffs)))
     print('"{}" comes after "{}" with a delay of:'.format(key2, key1))
     print('------------------------------------')
-    print('Analyzing differences between {} sent triggers'.format(len(diffs)))
-    print('Mean {} samples'.format(np.mean(diffs)))
-    print('STD: {} samples'.format(np.std(diffs)))
-    print('Median: {} samples'.format(np.median(diffs)))
+    print('Mean {} samples'.format(np.mean(diffs).round(3)))
+    print('STD: {} samples'.format(np.std(diffs).round(3)))
+    print('Median: {} samples'.format(np.median(diffs).round(3)))
 
     return diffs
 
@@ -152,8 +152,8 @@ if __name__ == '__main__':
 
     # Make a histogram plot
     hist_plot = pd.Series(diffs).plot.hist()
-    hist_plot.set_title('Histogram of {}\nResults for "{}"'.format(len(diffs),
-                                                                   args.file))
+    hist_plot.set_title('Histogram of {} triggers.\n'
+                        'Results for "{}"'.format(len(diffs), args.file))
     hist_plot.set_xlabel('Delay in samples')
     hist_plot.set_ylabel('count')
     plt.show()
