@@ -113,10 +113,17 @@ def analyze_df(df, key1='R128', key2='S  1'):
 
     # Now get the differences between markers in samples
     diffs = []
-    prev = df.onset[0]
-    for i in df.onset[1::]:
-        diffs.append(i - prev)
-        prev = i
+    prev_onset = df.onset[0]
+    for i, onset in enumerate(df.onset[1::]):
+        # Skip every second marker because we only measure differences
+        # between pairs ... not across last of previous pair and first of
+        # current pair
+        if i % 2 != 0:
+            prev_onset = onset
+            continue
+        else:
+            diffs.append(onset - prev_onset)
+            prev_onset = onset
 
     # Print the stats
     diffs = np.asarray(diffs)
