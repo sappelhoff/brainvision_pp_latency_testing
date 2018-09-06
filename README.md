@@ -105,7 +105,7 @@ These result are based on a sampling rate of 5kHz. Note the jitter might have se
 3. There might be some inherent jitter in either
     1. the parallel port
     2. the TriggerBox
-4. Some unknown reason (probably)
+4. Some unknown reason
 
 
 ![initial results](./results.png)
