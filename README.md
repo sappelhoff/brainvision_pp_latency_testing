@@ -108,4 +108,4 @@ These result are based on a sampling rate of 5kHz. Note the jitter might have se
 4. Some unknown reason
 
 
-![initial results](./results.png)
+![initial results](./initial_results.png)
