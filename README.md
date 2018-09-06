@@ -109,3 +109,13 @@ These result are based on a sampling rate of 5kHz. Note the jitter might have se
 
 
 ![initial results](./initial_results.png)
+
+# Summary / Interpretation
+
+1. As expected, the button box TTL trigger ('R128') arrived before the trigger sent via psychopy ('S  1')
+2. The parallel port and Trigger Box both had comparable delays of about 6 milliseconds (about 30 samples at a sampling frequency of 5000Hz)
+3. The jitter of triggers were comparable between parallel port and Trigger Box and were mainly due to psychopy (about 2ms of unexplained jitter remain)
+
+A surprising outcome is that the delay of the psychopy triggers with respect to the *direct* TTL signal via the button box was very low at 6ms.
+In combination with the low amount of jitter in trigger signals, it might be unnecessary to use direct TTL signals from the button box as the measure
+for response times. Simply because going via psychopy is "almost as good" at significantly easier handling ...
