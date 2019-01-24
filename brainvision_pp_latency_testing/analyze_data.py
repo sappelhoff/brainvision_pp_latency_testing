@@ -45,9 +45,16 @@ def read_vmrk(vmrk_path, key1, key2):
 
     # Go through the whole doc
     info = []
+    skip = True
+    skip_until = 'Mk6'
+    print('NOTE: Skipping until line starts with {}'.format(skip_until))
     for line in lines:
+        
+        if line.startswith('Mk6'):
+            skip = False
+
         # Skip all non-related lines
-        if not line.startswith('Mk'):
+        if skip:
             continue
 
         # If we have a marker line, extract the information we want
@@ -98,8 +105,8 @@ def _assert_df_integrity(df, key1='R128', key2='S  1'):
     # Assert the onsets are monotonously increasing
     prev = df.onset[0]
     for i in df.onset[1::]:
-        if prev >= i:
-            print(prev, i, prev >= i)
+        if prev > i:
+            print(prev, i, prev > i)
             raise ValueError('Onsets must be monotonously increasing')
         prev = i
 
